@@ -20,8 +20,7 @@ namespace CPUWindowsFormsFramework
         public static void SetControlBinding(Control ctrl, DataTable dt)
         {
             string propertyname = "";
-            string controlname = ctrl.Name.ToLower();
-            string columnname = controlname.Substring(3);
+            string columnname = ctrl.Name.ToLower().Substring(3);
             string controltype = ctrl.Name.Substring(0, 3);
 
             switch (controltype)
