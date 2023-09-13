@@ -45,7 +45,7 @@ namespace CPUWindowsFormsFramework
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-        public static bool IsFormOpen(Type formtype, int pkvalue = 0)//figure out bug on why after entering new president searching activates it (already fixed by adding tag but see what caused it)
+        public static bool IsFormOpen(Type formtype, int pkvalue = 0)
         {
             bool exists = false;
             foreach (Form frm in Application.OpenForms)
