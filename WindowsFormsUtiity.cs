@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.DirectoryServices.ActiveDirectory;
 
 namespace CPUWindowsFormsFramework
 {
@@ -44,7 +45,7 @@ namespace CPUWindowsFormsFramework
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-        public static bool IsFormOpen(Type formtype, int pkvalue = 0)
+        public static bool IsFormOpen(Type formtype, int pkvalue = 0)//figure out bug on why after entering new president searching activates it (already fixed by adding tag but see what caused it)
         {
             bool exists = false;
             foreach (Form frm in Application.OpenForms)
@@ -54,7 +55,7 @@ namespace CPUWindowsFormsFramework
                 {
                     frmpkvalue = (int)frm.Tag;
                 }
-                if (frm.GetType() == formtype & frmpkvalue == pkvalue)
+                if (frm.GetType() == formtype && frmpkvalue == pkvalue)
                 {
                     frm.Activate();
                     exists = true;
@@ -63,6 +64,31 @@ namespace CPUWindowsFormsFramework
             }
             return exists;
         }
+        public static void SetUpNav(ToolStrip ts)
+        {
+            ts.Items.Clear();
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f.IsMdiChild)
+                {
+                    ToolStripButton btn = new(f.Text);
+                    btn.Tag = f;
+                    btn.Click += Btn_Click;
+                    ts.Items.Add(btn);
+                    ts.Items.Add(new ToolStripSeparator());
+                }
+            }
+        }
+        private static void Btn_Click(object? sender, EventArgs e)
+        {
+            if (sender != null && sender is ToolStripButton btn)
+            {
+                if (btn.Tag != null && btn.Tag is Form)
+                {
+                    ((Form)btn.Tag).Activate();
+                }
 
+            }
+        }
     }
 }
