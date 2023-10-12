@@ -37,14 +37,29 @@ namespace CPUWindowsFormsFramework
 
         }
 
-        public static void FormatGridForSearchResults(DataGridView grid)
+        public static void FormatGridForSearchResults(DataGridView grid, string tablename)
         {
             grid.AllowUserToAddRows = false;
             grid.ReadOnly = true;
-            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DoFormatGrid(grid, tablename);
+        }
+        public static void FormatGridForEdit(DataGridView grid, string tablename)
+        {
+            DoFormatGrid(grid, tablename);
         }
 
+        private static void DoFormatGrid(DataGridView grid, string tablename)
+        {
+            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            grid.RowHeadersWidth = 25;
+            string pkname = tablename + "Id";
+            if (grid.Columns.Contains(pkname))
+            {
+                grid.Columns[pkname].Visible = false;
+            }
+
+        }
         public static bool IsFormOpen(Type formtype, int pkvalue = 0)
         {
             bool exists = false;
