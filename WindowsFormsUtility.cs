@@ -60,12 +60,19 @@ namespace CPUWindowsFormsFramework
                     col.Visible = false;
                 }
             }
-            //Not needed after above code
-            //string pkname = tablename + "Id";
-            //if (grid.Columns.Contains(pkname))
-            //{
-            //    grid.Columns[pkname].Visible = false;
-            //}
+        }
+
+        public static int GetIdFromGrid(DataGridView grid, int rowindex, string columnname)
+        {
+            int id = 0;
+            if (grid.Rows.Count > rowindex && grid.Columns.Contains(columnname) && grid.Rows[rowindex].Cells[columnname].Value != DBNull.Value)
+            {
+                if (grid.Columns[columnname].ValueType == typeof(int))
+                {
+                    id = (int)grid.Rows[rowindex].Cells[columnname].Value;
+                }
+            }
+            return id;
         }
 
         public static void AddComboBoxToGrid(DataGridView grid, DataTable datasource, string tablename, string displaymember)
