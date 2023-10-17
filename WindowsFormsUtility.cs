@@ -1,9 +1,8 @@
 ﻿using System.Data;
-using System.DirectoryServices.ActiveDirectory;
 
 namespace CPUWindowsFormsFramework
 {
-    public class WindowsFormsUtiity
+    public class WindowsFormsUtility
     {
 
         public static void SetListBinding(ComboBox lst, DataTable sourcedt, DataTable targetdt, string tablename)
@@ -54,20 +53,39 @@ namespace CPUWindowsFormsFramework
         {
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             grid.RowHeadersWidth = 25;
-            string pkname = tablename + "Id";
-            if (grid.Columns.Contains(pkname))
+            foreach (DataGridViewColumn col in grid.Columns)
             {
-                grid.Columns[pkname].Visible = false;
+                if (col.Name.EndsWith("Id"))
+                {
+                    col.Visible = false;
+                }
             }
-
+            //Not needed after above code
+            //string pkname = tablename + "Id";
+            //if (grid.Columns.Contains(pkname))
+            //{
+            //    grid.Columns[pkname].Visible = false;
+            //}
         }
+
+        public static void AddComboBoxToGrid(DataGridView grid, DataTable datasource, string tablename, string displaymember)
+        {
+            DataGridViewComboBoxColumn c = new();
+            c.DataSource = datasource;
+            c.DisplayMember = displaymember;
+            c.ValueMember = tablename + "Id";
+            c.DataPropertyName = c.ValueMember;
+            c.HeaderText = tablename;
+            grid.Columns.Insert(0, c);
+        }
+
         public static bool IsFormOpen(Type formtype, int pkvalue = 0)
         {
             bool exists = false;
             foreach (Form frm in Application.OpenForms)
             {
                 int frmpkvalue = 0;
-                if(frm.Tag != null && frm.Tag is int)
+                if (frm.Tag != null && frm.Tag is int)
                 {
                     frmpkvalue = (int)frm.Tag;
                 }
