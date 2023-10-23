@@ -1,17 +1,19 @@
 ﻿using System.Data;
-using System.Xml.Linq;
 
 namespace CPUWindowsFormsFramework
 {
     public class WindowsFormsUtility
     {
 
-        public static void SetListBinding(ComboBox lst, DataTable sourcedt, DataTable targetdt, string tablename)
+        public static void SetListBinding(ComboBox lst, DataTable sourcedt, DataTable? targetdt, string tablename)
         {
             lst.DataSource = sourcedt;
             lst.ValueMember = tablename + "ID";
             lst.DisplayMember = lst.Name.Substring(3);
-            lst.DataBindings.Add("SelectedValue", targetdt, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
+            if (targetdt != null)
+            {
+                lst.DataBindings.Add("SelectedValue", targetdt, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
+            }
         }
         public static void SetControlBinding(Control ctrl, BindingSource bindsource)
         {
@@ -76,6 +78,15 @@ namespace CPUWindowsFormsFramework
             return id;
         }
 
+        public static int GetIdFromComboBox(ComboBox lst)
+        {
+            int value = 0;
+            if (lst.SelectedValue != null && lst.SelectedValue is int) 
+            {
+                value = (int)lst.SelectedValue;
+            }
+            return value;
+        }
         public static void AddComboBoxToGrid(DataGridView grid, DataTable datasource, string tablename, string displaymember)
         {
             DataGridViewComboBoxColumn c = new();
