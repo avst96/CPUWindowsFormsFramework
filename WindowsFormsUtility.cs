@@ -39,20 +39,20 @@ namespace CPUWindowsFormsFramework
 
         }
 
-        public static void FormatGridForSearchResults(DataGridView grid, string tablename)
+        public static void FormatGridForSearchResults(DataGridView grid)
         {
             grid.AllowUserToAddRows = false;
             grid.ReadOnly = true;
             grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DoFormatGrid(grid, tablename);
+            DoFormatGrid(grid);
         }
-        public static void FormatGridForEdit(DataGridView grid, string tablename)
+        public static void FormatGridForEdit(DataGridView grid)
         {
             grid.EditMode = DataGridViewEditMode.EditOnEnter;
-            DoFormatGrid(grid, tablename);
+            DoFormatGrid(grid);
         }
 
-        private static void DoFormatGrid(DataGridView grid, string tablename)
+        private static void DoFormatGrid(DataGridView grid)
         {
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             grid.RowHeadersWidth = 25;
