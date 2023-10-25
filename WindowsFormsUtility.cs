@@ -54,11 +54,14 @@ namespace CPUWindowsFormsFramework
 
         private static void DoFormatGrid(DataGridView grid)
         {
-            grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            foreach (DataGridViewColumn column in grid.Columns)
+            {
+                column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
             grid.RowHeadersWidth = 25;
             foreach (DataGridViewColumn col in grid.Columns)
             {
-                if (col.Name.EndsWith("Id"))
+                if (col.Name.EndsWith("Id") || col.Name.EndsWith("ID"))
                 {
                     col.Visible = false;
                 }
@@ -81,7 +84,7 @@ namespace CPUWindowsFormsFramework
         public static int GetIdFromComboBox(ComboBox lst)
         {
             int value = 0;
-            if (lst.SelectedValue != null && lst.SelectedValue is int) 
+            if (lst.SelectedValue != null && lst.SelectedValue is int)
             {
                 value = (int)lst.SelectedValue;
             }
