@@ -147,7 +147,6 @@ namespace CPUWindowsFormsFramework
                 {
                     ((Form)btn.Tag).Activate();
                 }
-
             }
         }
     }
