@@ -5,14 +5,14 @@ namespace CPUWindowsFormsFramework
     public class WindowsFormsUtility
     {
 
-        public static void SetListBinding(ComboBox lst, DataTable sourcedt, DataTable? targetdt, string tablename)
+        public static void SetListBinding(ComboBox lst, DataTable sourcedt, BindingSource? bindsource, string tablename)
         {
             lst.DataSource = sourcedt;
             lst.ValueMember = tablename + "ID";
             lst.DisplayMember = lst.Name.Substring(3);
-            if (targetdt != null)
+            if (bindsource != null)
             {
-                lst.DataBindings.Add("SelectedValue", targetdt, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
+                lst.DataBindings.Add("SelectedValue", bindsource, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
             }
         }
         public static void SetControlBinding(Control ctrl, BindingSource bindsource)
