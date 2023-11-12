@@ -71,6 +71,7 @@ namespace CPUWindowsFormsFramework
             }
         }
 
+
         public static int GetIdFromGrid(DataGridView grid, int rowindex, string columnname)
         {
             int id = 0;
@@ -151,6 +152,15 @@ namespace CPUWindowsFormsFramework
                     ((Form)btn.Tag).Activate();
                 }
             }
+        }
+        public static bool IsKeyIntOrControl(char c)
+        {
+            bool b = true;
+            if (!char.IsControl(c) && !char.IsDigit(c))
+            {
+                b = false;
+            }
+            return b;
         }
     }
 }
