@@ -162,5 +162,10 @@ namespace CPUWindowsFormsFramework
             }
             return b;
         }
+        public static void GridErrorMsg(DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("A data input error occured. Ensure you are entering the correct type of input.", Application.ProductName);
+            e.ThrowException = false;
+        }
     }
 }
