@@ -167,5 +167,9 @@ namespace CPUWindowsFormsFramework
             MessageBox.Show("A data input error occured. Ensure you are entering the correct type of input.", Application.ProductName);
             e.ThrowException = false;
         }
+        public static DialogResult MessageBoxWithReset(string exmsg)
+        {
+           return MessageBox.Show($"{exmsg}{Environment.NewLine}Do you want to reset the grid to show only records that were saved?", Application.ProductName, MessageBoxButtons.YesNo);
+        }
     }
 }
